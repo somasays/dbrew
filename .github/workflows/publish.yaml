@@ -75,7 +75,7 @@ jobs:
           PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
 
   publish:
-    needs: [build_wheels, test, check]
+    needs: [test, check]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
