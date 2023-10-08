@@ -32,7 +32,8 @@ class YamlValidator:
 
     def validate_yaml(self, yaml_data: dict) -> DataProductSchema:
         try:
-            return DataProductSchema(**yaml_data)
+            dp_schema = DataProductSchema(**yaml_data)
+            return dp_schema
         except ValidationError as e:
             print(f"Validation error: {e}")
             raise

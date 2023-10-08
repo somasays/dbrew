@@ -8,6 +8,7 @@ pydantic = "*"
 pyyaml = "*"
 pytest = "*"
 pytest-mock = "*"
+click = "*"
 
 [dev-packages]
 
