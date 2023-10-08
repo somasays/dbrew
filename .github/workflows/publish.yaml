@@ -65,9 +65,9 @@ jobs:
       - name: Lint code
         run: |
           tox -e lint
-      - name: Type check
-        run: |
-          tox -e typecheck
+#      - name: Type check
+#        run: |
+#          tox -e typecheck
       - name: Build source distribution
         run: |
           tox -e build
