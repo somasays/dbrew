@@ -33,38 +33,38 @@ product:
 
 
 def test_load_yaml(mocker):
-    mocker.patch('builtins.open', mocker.mock_open(read_data=valid_yaml_data))
-    validator = YamlValidator('fake_path')
+    mocker.patch("builtins.open", mocker.mock_open(read_data=valid_yaml_data))
+    validator = YamlValidator("fake_path")
     assert validator.load_yaml() == yaml.safe_load(StringIO(valid_yaml_data))
 
 
 def test_validate_yaml():
-    validator = YamlValidator('fake_path')
+    validator = YamlValidator("fake_path")
     validated_data = validator.validate_yaml(yaml.safe_load(StringIO(valid_yaml_data)))
     assert isinstance(validated_data, DataProductSchema)
 
 
 def test_validate_yaml_invalid():
-    validator = YamlValidator('fake_path')
+    validator = YamlValidator("fake_path")
     with pytest.raises(ValidationError):
         validator.validate_yaml(yaml.safe_load(StringIO(invalid_yaml_data)))
 
 
 def test_validate_file(mocker):
-    mocker.patch.object(YamlValidator, 'load_yaml', return_value=yaml.safe_load(StringIO(valid_yaml_data)))
-    validator = YamlValidator('fake_path')
+    mocker.patch.object(YamlValidator, "load_yaml", return_value=yaml.safe_load(StringIO(valid_yaml_data)))
+    validator = YamlValidator("fake_path")
     validated_data = validator.validate_file()
     assert isinstance(validated_data, DataProductSchema)
 
 
-
 def test_load_yaml_file_not_found(capfd):
     # This test checks the case where the file does not exist
-    validator = YamlValidator('nonexistent_path')
+    validator = YamlValidator("nonexistent_path")
     with pytest.raises(FileNotFoundError):
         validator.load_yaml()
     captured = capfd.readouterr()  # captures stdout and stderr
-    assert captured.out == ''
+    assert captured.out == ""
+
 
 def test_validate_file_invalid_yaml(capfd):
     # This test checks the case where the YAML data is invalid
@@ -74,10 +74,10 @@ def test_validate_file_invalid_yaml(capfd):
       id: monthly_active_users
     """
     mock_open = mock.mock_open(read_data=invalid_yaml_data)
-    with mock.patch('builtins.open', mock_open):
-        validator = YamlValidator('fake_path')
+    with mock.patch("builtins.open", mock_open):
+        validator = YamlValidator("fake_path")
         with pytest.raises(ValidationError):
             validated_data = validator.validate_file()
-        # assert validated_data is None
+            assert validated_data is None
             captured = capfd.readouterr()  # captures stdout and stderr
             assert "Validation error:" in captured.out

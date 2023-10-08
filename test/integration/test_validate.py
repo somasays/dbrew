@@ -44,16 +44,18 @@ def test_integration(valid_yaml_file_path):
     assert product_data.id == "monthly_active_users"
     assert product_data.version == "1.0.0"
     assert product_data.name == "Monthly active users"
-    assert product_data.description == "Data product to calculate and report monthly active users across business units."
+    assert (
+        product_data.description == "Data product to calculate and report monthly active users across business units."
+    )
     assert product_data.owner == "xx@yy.com"
     assert product_data.schedule == "0 7 * * *"
-    assert product_data.engine['dbt']['models_package'] == "src/"
+    assert product_data.engine["dbt"]["models_package"] == "src/"
 
     # Check the constraints
     for constraint in product_data.constraints:
-        fields = constraint.get('fields', {})
-        if 'active_users' in fields:
-            active_users_constraints = fields['active_users']
-            assert 'is_not_null' in active_users_constraints
-            assert 'is_positive_integer' in active_users_constraints
+        fields = constraint.get("fields", {})
+        if "active_users" in fields:
+            active_users_constraints = fields["active_users"]
+            assert "is_not_null" in active_users_constraints
+            assert "is_positive_integer" in active_users_constraints
             break  # Exit loop once active_users constraints have been found and checked

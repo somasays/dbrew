@@ -1,2 +1,2 @@
 def test_package_is_importable():
-    import dbrew
+    import dbrew  # noqa

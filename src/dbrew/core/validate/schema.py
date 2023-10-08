@@ -27,7 +27,7 @@ class YamlValidator:
         self.file_path = file_path
 
     def load_yaml(self) -> dict:
-        with open(self.file_path, 'r') as file:
+        with open(self.file_path, "r") as file:
             return yaml.safe_load(file)
 
     def validate_yaml(self, yaml_data: dict) -> DataProductSchema:
